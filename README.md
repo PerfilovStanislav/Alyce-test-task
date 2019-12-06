@@ -21,3 +21,7 @@ Do you best to solve that as if it's production task.
 1. You need to define interface as much simple as possible to easy make roles and abilities checking accross the project
 2. Role checking should be constant complexity
 3. Ability checking should be constant complexity
+
+
+## Uml Schema of DB
+<p align="center"><img src="./schema.svg"></p>
