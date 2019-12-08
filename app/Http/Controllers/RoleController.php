@@ -41,6 +41,25 @@ class RoleController extends Controller
     }
 
     /**
+     * Return list of users
+     * @return array
+     */
+    public function list() : array
+    {
+        return $this->roleModelManager->list()->toArray();
+    }
+
+    /**
+     * Get Role info
+     * @param int $id
+     * @return mixed
+     */
+    public function get(int $id)
+    {
+        return $this->roleModelManager->get($id)->toArray();
+    }
+
+    /**
      * Create new role
      * @param RoleRequest $request
      * @return array

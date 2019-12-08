@@ -6,6 +6,7 @@ use App\Exceptions\DuplicateException;
 use App\Exceptions\RoleExistsException;
 use App\Exceptions\RoleNotFoundException;
 use App\Exceptions\AbilityNotFoundException;
+use Illuminate\Database\Eloquent\Collection;
 use App\Models\Role;
 
 class RoleModelManager
@@ -15,6 +16,25 @@ class RoleModelManager
     public function __construct(AbilityModelManager $abilityModelManager)
     {
         $this->abilityModelManager = $abilityModelManager;
+    }
+
+    /**
+     * Return list of users
+     * @return Collection
+     */
+    public function list()
+    {
+        return Role::all();
+    }
+
+    /**
+     * Get role's info
+     * @param int $id
+     * @return mixed
+     */
+    public function get(int $id)
+    {
+        return $this->getModelByIdOrFail($id)->append(['abilities']);
     }
 
     /**

@@ -42,6 +42,25 @@ class UserController extends Controller
     }
 
     /**
+     * Return list of users
+     * @return array
+     */
+    public function list() : array
+    {
+        return $this->userModelManager->list()->toArray();
+    }
+
+    /**
+     * Get user's info
+     * @param int $id
+     * @return array
+     */
+    public function get(int $id)
+    {
+        return $this->userModelManager->get($id)->toArray();
+    }
+
+    /**
      * Create new user
      * @param UserRequest $request
      * @return array

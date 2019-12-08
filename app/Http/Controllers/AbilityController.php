@@ -41,6 +41,25 @@ class AbilityController extends Controller
     }
 
     /**
+     * Return list of users
+     * @return array
+     */
+    public function list() : array
+    {
+        return $this->abilityModelManager->list()->toArray();
+    }
+
+    /**
+     * Get Ability info
+     * @param int $id
+     * @return mixed
+     */
+    public function get(int $id)
+    {
+        return $this->abilityModelManager->get($id)->toArray();
+    }
+
+    /**
      * Create new ability
      * @param AbilityRequest $request
      * @return mixed

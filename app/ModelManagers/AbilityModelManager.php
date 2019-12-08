@@ -5,6 +5,7 @@ namespace App\ModelManagers;
 use App\Exceptions\AbilityExistsException;
 use App\Exceptions\AbilityNotFoundException;
 use App\Models\Ability;
+use Illuminate\Database\Eloquent\Collection;
 
 class AbilityModelManager
 {
@@ -23,6 +24,25 @@ class AbilityModelManager
         $ability = new Ability($attributes);
         $ability->save();
         return $ability->id;
+    }
+
+    /**
+     * Return list of abilities
+     * @return Collection
+     */
+    public function list()
+    {
+        return Ability::all();
+    }
+
+    /**
+     * Get Ability model
+     * @param int $id
+     * @return Ability
+     */
+    public function get(int $id) : Ability
+    {
+        return $this->getModelByIdOrFail($id);
     }
 
     /**

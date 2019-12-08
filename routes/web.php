@@ -11,24 +11,39 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
 
 Route::prefix('user')->group(function () {
+    Route::get('/list', 'UserController@list');
+    Route::get('/{id}', 'UserController@get')->where('id', '[0-9]+');
     Route::post('create', 'UserController@create');
-    Route::put('update/{id}', 'UserController@update');
-    Route::delete('delete/{id}', 'UserController@delete');
-    Route::post('attach/{userId}/{roleId}', 'UserController@attach');
-    Route::post('detach/{userId}/{roleId}', 'UserController@detach');
+    Route::put('update/{id}', 'UserController@update')->where('id', '[0-9]+');
+    Route::delete('delete/{id}', 'UserController@delete')->where('id', '[0-9]+');
+    Route::post('/{id}/attach/role/{roleId}', 'UserController@attach')
+        ->where('id', '[0-9]+')
+        ->where('roleId', '[0-9]+');
+    Route::delete('/{id}/detach/role/{roleId}', 'UserController@detach')
+        ->where('id', '[0-9]+')
+        ->where('roleId', '[0-9]+');
 });
 
 Route::prefix('role')->group(function () {
+    Route::get('/list', 'RoleController@list');
+    Route::get('/{id}', 'RoleController@get')->where('id', '[0-9]+');
     Route::post('create', 'RoleController@create');
     Route::put('update/{id}', 'RoleController@update');
     Route::delete('delete/{id}', 'RoleController@delete');
-    Route::post('attach/{roleId}/{abilityId}', 'RoleController@attach');
-    Route::post('detach/{roleId}/{abilityId}', 'RoleController@detach');
+    Route::post('/{id}/attach/ability/{abilityId}', 'RoleController@attach')
+        ->where('id', '[0-9]+')
+        ->where('abilityId', '[0-9]+');
+    Route::delete('/{id}/detach/ability/{abilityId}', 'RoleController@detach')
+        ->where('id', '[0-9]+')
+        ->where('abilityId', '[0-9]+');
 });
 
 Route::prefix('ability')->group(function () {
+    Route::get('/list', 'AbilityController@list');
+    Route::get('/{id}', 'AbilityController@get')->where('id', '[0-9]+');
     Route::post('create', 'AbilityController@create');
     Route::put('update/{id}', 'AbilityController@update');
     Route::delete('delete/{id}', 'AbilityController@delete');

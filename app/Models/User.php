@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -21,6 +22,13 @@ class User extends Model
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class, 'users_roles');
+        return $this->belongsToMany(Role::class, 'users_roles')->withPivot('created_at');
+    }
+
+    public function getRolesAttribute() : Collection
+    {
+        return $this->roles()->get()->map(function (Role $role) {
+            return $role->append(['abilities']);
+        });
     }
 }

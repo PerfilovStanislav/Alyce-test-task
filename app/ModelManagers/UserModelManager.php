@@ -6,6 +6,7 @@ use App\Exceptions\DuplicateException;
 use App\Exceptions\RoleNotFoundException;
 use App\Exceptions\UserExistsException;
 use App\Exceptions\UserNotFoundException;
+use Illuminate\Database\Eloquent\Collection;
 use App\Models\User;
 
 class UserModelManager
@@ -16,6 +17,26 @@ class UserModelManager
     {
         $this->roleModelManager = $roleModelManager;
     }
+
+    /**
+     * Return list of users
+     * @return Collection
+     */
+    public function list()
+    {
+        return User::all();
+    }
+
+    /**
+     * Get user's info
+     * @param int $id
+     * @return User
+     */
+    public function get(int $id)
+    {
+        return $this->getModelByIdOrFail($id)->append(['roles']);
+    }
+
     /**
      * Create new user
      * @param array $attributes
