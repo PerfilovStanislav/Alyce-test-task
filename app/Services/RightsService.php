@@ -69,7 +69,7 @@ class RightsService implements RightsServiceInterface
      * @return bool
      * @throws UserNotFoundException
      */
-    public function hasUserIdAbilityById(int $userId, string $abilityId) : bool
+    public function hasUserIdAbilityById(int $userId, int $abilityId) : bool
     {
         return $this->hasUserAbilityByAttributes(
             $this->userModelManager->getModelByIdOrFail($userId),
@@ -101,7 +101,9 @@ class RightsService implements RightsServiceInterface
     public function hasUserAbilityByAttributes(User $user, array $attributes) : bool
     {
         return $user->roles()->whereHas('abilities', function(Builder $q) use($attributes) {
-                $q->where($attributes);
+            foreach ($attributes as $column => $value) {
+                $q->where('ability.' . $column, '=', $value);
+            }
             })->exists();
     }
 }

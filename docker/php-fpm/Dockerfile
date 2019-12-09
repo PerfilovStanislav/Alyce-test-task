@@ -1,16 +1,14 @@
-FROM php:7.2-fpm
+FROM php:7.2-fpm-alpine
 
 COPY . /var/www
 
+RUN apk add --no-cache zlib-dev && docker-php-ext-install zip \
+    && docker-php-ext-install mysqli pdo_mysql \
+    && wget -O /usr/local/bin/composer https://getcomposer.org/composer.phar \
+    && chmod +x /usr/local/bin/composer \
+    && wget -O /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-7.phar \
+    && chmod +x /usr/local/bin/phpunit
+
 WORKDIR /var/www
-
-RUN apt-get update && apt-get install --assume-yes zlib1g-dev
-
-RUN docker-php-ext-install pdo pdo_mysql zip
-
-RUN apt-get --assume-yes install git
-RUN apt-get install unzip
-
-RUN curl -sL https://getcomposer.org/installer | php -- --install-dir /usr/bin --filename composer
 
 CMD php-fpm

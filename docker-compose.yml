@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   nginx:
-    container_name: "test-nginx"
+    container_name: "nginx"
     build:
       context: .
       dockerfile: docker/nginx/Dockerfile
@@ -18,7 +18,7 @@ services:
       - test-network
 
   php-fpm:
-    container_name: "test-php-fpm"
+    container_name: "php-fpm"
     build:
       context: .
       dockerfile: docker/php-fpm/Dockerfile
@@ -32,7 +32,6 @@ services:
       - test-network
 
   mysql:
-    container_name: "test-mysql"
     image: mysql:5.7.28
     ports:
       - "${DOCKER_MYSQL_PORT}:3306"
@@ -42,6 +41,19 @@ services:
       - MYSQL_USER=${DB_USERNAME}
     volumes:
       - ./docker/data/mysql:/var/lib/mysql
+    networks:
+      - test-network
+
+  test-mysql:
+    image: mysql:5.7.28
+    ports:
+      - "${DOCKER_TEST_MYSQL_PORT}:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${TEST_DB_DATABASE}
+      - MYSQL_USER=${DB_USERNAME}
+    volumes:
+      - ./docker/data/mysql_testing:/var/lib/mysql
     networks:
       - test-network
 

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Interfaces;
+namespace Tests\Mocks\Services;
 
-use App\Exceptions\UserNotFoundException;
+use App\Interfaces\RightsServiceInterface;
 use App\Models\User;
+use \App\Exceptions\UserNotFoundException;
 
-interface RightsServiceInterface
+class RightsService implements RightsServiceInterface
 {
     /**
      * check if userId has selected roleId
@@ -14,7 +15,10 @@ interface RightsServiceInterface
      * @return bool
      * @throws UserNotFoundException
      */
-    public function hasUserIdRoleById(int $userId, int $roleId) : bool;
+    public function hasUserIdRoleById(int $userId, int $roleId) : bool
+    {
+        return true;
+    }
 
     /**
      * check if userId has selected roleName
@@ -23,7 +27,10 @@ interface RightsServiceInterface
      * @return bool
      * @throws UserNotFoundException
      */
-    public function hasUserIdRoleByName(int $userId, string $roleName) : bool;
+    public function hasUserIdRoleByName(int $userId, string $roleName) : bool
+    {
+        return true;
+    }
 
     /**
      * check if user has selected role by attributes
@@ -31,16 +38,22 @@ interface RightsServiceInterface
      * @param array $attributes
      * @return bool
      */
-    public function hasUserRoleByAttributes(User $user, array $attributes) : bool;
+    public function hasUserRoleByAttributes(User $user, array $attributes) : bool
+    {
+        return true;
+    }
 
     /**
      * check if userId has selected abilityId
      * @param int $userId
-     * @param int $abilityId
+     * @param string $abilityId
      * @return bool
      * @throws UserNotFoundException
      */
-    public function hasUserIdAbilityById(int $userId, int $abilityId) : bool;
+    public function hasUserIdAbilityById(int $userId, int $abilityId) : bool
+    {
+        return true;
+    }
 
     /**
      * check if userId has selected abilityName
@@ -49,7 +62,10 @@ interface RightsServiceInterface
      * @return bool
      * @throws UserNotFoundException
      */
-    public function hasUserIdAbilityByName(int $userId, string $abilityName) : bool;
+    public function hasUserIdAbilityByName(int $userId, string $abilityName) : bool
+    {
+        return true;
+    }
 
     /**
      * check if user has selected ability by attributes
@@ -57,5 +73,8 @@ interface RightsServiceInterface
      * @param array $attributes
      * @return bool
      */
-    public function hasUserAbilityByAttributes(User $user, array $attributes) : bool;
+    public function hasUserAbilityByAttributes(User $user, array $attributes) : bool
+    {
+        return true;
+    }
 }
